@@ -4,7 +4,8 @@ use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 fn shutdown() -> impl Responder {
     std::thread::spawn(|| {
         std::thread::sleep(std::time::Duration::from_secs(2));
-        std::process::Command::new("shutdown")
+        std::process::Command::new("sudo")
+            .arg("shutdown")
             .arg("now")
             .spawn()
             .expect("failed to start shutdown");
@@ -16,7 +17,8 @@ fn shutdown() -> impl Responder {
 fn reboot() -> impl Responder {
     std::thread::spawn(|| {
         std::thread::sleep(std::time::Duration::from_secs(2));
-        std::process::Command::new("reboot")
+        std::process::Command::new("sudo")
+            .arg("reboot")
             .spawn()
             .expect("failed to start reboot");
     });
